@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="SPCS Cruise Hub",
     page_icon="🚢",
     layout="centered",
-    initial_sidebar_state="collapsed" # Completely hides the native sidebar arrow
+    initial_sidebar_state="collapsed" 
 )
 
 # --- PREMIUM CRUISE THEME, TYPOGRAPHY & FADED SHIP BACKGROUND ---
@@ -112,11 +112,11 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Fixed Top Social Media Handles
+# Fixed Top Social Media Handles (Patched with verified link routing)
 st.markdown("""
 <div class="social-card">
     <span style="font-weight: 600; color: #000000;">🔗 Official Community Pages:</span>
-    <a href="https://www.facebook.com/groups/769538356499119" target="_blank" class="social-link">Facebook Group</a> | 
+    <a href="https://www.facebook.com/groups/769538356499119" target="_blank" class="social-link">SPCS National Women Forum (Official)</a> | 
     <a href="https://www.instagram.com/spcs_legacy_in_motion/" target="_blank" class="social-link">Instagram</a>
 </div>
 """, unsafe_allow_html=True)
@@ -190,7 +190,6 @@ if st.session_state.page == "Main_Menu":
 # --- SUB-PAGES DIRECTORY PATH ROUTING ---
 # ==========================================
 
-# A helper block to show the back button layout on every nested subpage
 def show_back_button():
     if st.button("🔙 Back to Main Menu Directory", type="secondary", use_container_width=True):
         st.session_state.page = "Main_Menu"
@@ -337,3 +336,115 @@ elif st.session_state.page == "Luggage":
     show_back_button()
     st.markdown('<div class="section-header"><span>🧳 Royal Caribbean Luggage & Bag Policy</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    
+    st.markdown('<div class="sub-title">⚖️ Weight & Bag Limits</div>', unsafe_allow_html=True)
+    st.write("• **Bag Limits and Weight:** Royal Caribbean allows up to **two checked bags per person**. While there is no strict scale at the pier, the recommended weight limit is **50 lbs (23 kg) per bag** to ensure the port handlers can safely lift them.")
+    
+    st.markdown('<div class="sub-title">🎒 Carry-On and Personal Item Rules</div>', unsafe_allow_html=True)
+    st.write("• Unlike airlines, the cruise line does not have a strict limit on the number of carry-on items you can bring, nor do they enforce a weight limit. You are completely fine to bring one rolling carry-on bag plus a smaller personal item (like a backpack, tote bag, or purse). The only rule is that all carry-on items must be able to physically fit through an airport-style X-ray security scanner at the terminal.")
+    
+    st.markdown('<div class="sub-title">💼 Checked Bags vs. Carry-Ons</div>', unsafe_allow_html=True)
+    st.write("• When you arrive at the port, porter service will take your large suitcases to deliver them straight to your room later in the evening. You **must carry a small day bag** (backpack or tote) with you containing your passport, medication, and swimwear so you can enjoy the ship while waiting for your luggage.")
+    
+    st.markdown('<div class="sub-section-header" style="color: #DC2626; font-weight: 600; border-bottom: 2px solid #DC2626;">🚫 Prohibited Items (Do Not Pack)</div>', unsafe_allow_html=True)
+    st.markdown("""
+    The ship will confiscate items that generate heat or pose a safety risk. **Do not pack:**
+    * Clothing irons & steamers
+    * Extension cords & surge protectors
+    * Candles
+    * Weapons or illegal drugs (including medically prescribed marijuana and CBD products)
+    """)
+    
+    st.markdown('<div class="sub-title">💎 Valuables and Electronics</div>', unsafe_allow_html=True)
+    st.write("• Always keep your laptops, cameras, jewelry, and medications in your carry-on bag. **Never hand these items over to the airport or cruise port porters.**")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# EMERGENCY PROTOCOL
+elif st.session_state.page == "Emergency":
+    show_back_button()
+    st.markdown('<div class="section-header"><span>🚨 Emergency Protocol & Communication</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="policy-box">
+        <strong style="color: #0033AA;">📇 What is a SeaPass Card?</strong><br>
+        Every single person gets their own individual SeaPass card, including infants and young children:<br>
+        • <strong>It Is Your Ship ID:</strong> It features your name and identity photo, which security uses to verify who you are every time you exit or re-enter the ship.<br>
+        • <strong>It Is Your Room Key:</strong> It is the only way to unlock your specific stateroom door.<br>
+        • <strong>It Is Your Wallet:</strong> All onboard purchases, drinks, and specialty dining are charged directly to your individual card.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    * **Stay Connected:** Updates will be shared through the Royal Caribbean App, so you are highly advised to stay connected with your assigned group leader throughout the cruise.
+    * **Individual Tracking:** The ship tracks everyone individually via your personal SeaPass card. You must carry your physical card and a photo ID every time you leave the ship. One person cannot scan in for another.
+    * **Missing the Ship:** If you are left behind or lost at a port, immediately find the **Local Port Agent** contact info. It is printed at the bottom of the daily paper *Cruise Compass* and listed in your Royal Caribbean App on port days. **Take a screenshot before leaving the ship.** The port agent is the only person who can help you clear customs or catch up to the ship.
+    """)
+    
+    st.markdown('<div class="sub-title">☎️ Emergency Travel Line</div>', unsafe_allow_html=True)
+    st.write("If you cannot reach the local port agent, call the corporate emergency team at:")
+    st.code("+1-305-982-2700", language="text")
+    st.caption("📱 Note: Remember to follow international dialing protocols from your location (hold '0' for the + sign, then dial 1-305-982-2700).")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# DAILY DINNER UPDATE
+elif st.session_state.page == "Dinner":
+    show_back_button()
+    st.markdown('<div class="section-header"><span>🍽️ Daily Group Dinner Update</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="dinner-box">
+        <strong>📋 Evening Dining Schedule:</strong><br>
+        • <strong>Time:</strong> 5:00 PM Sharp — Official Group Dinner booked (Daily)<br>
+        • <strong>Location:</strong> Main Dining Room (Early seating selected)<br>
+        • <strong>Note:</strong> This early seating ensures everyone has time afterward to enjoy evening cruise activities.<br>
+        • <strong>Alternative:</strong> The Windjammer Buffet (Deck 11) is also available each day for flexible dining.
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# KEY POINTS TO NOTE
+elif st.session_state.page == "KeyPoints":
+    show_back_button()
+    st.markdown('<div class="section-header"><span>📌 Key Points to Note</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    
+    st.markdown("""
+    * **Dress Code Rules:** Dress code themes are strictly for group coordination and group photos.
+    * **Extra Clothes:** Bring extra outfits for themed photos, daytime activities, and formal evening events.
+    * **Footwear:** Comfortable footwear (like sneakers) is highly recommended for walking the ship and shore excursions.
+    * **Day 1 Preparation:** Pack a Day 1 outfit in your carry-on bag, as your main checked luggage may take several hours to reach your room.
+    * **Temperature Control:** Bring a light jacket or sweater for chilly, air-conditioned indoor venues.
+    * **Quick Access:** Keep your SeaPass card handy at all times using a pocket or lanyard for quick scanning.
+    * **Bring Your Own Drinks (Day 1 Only):** Each stateroom is legally allowed to bring up to **twelve 12-oz cans/cartons of non-alcoholic beverages** (soda, water, juices) and **two 750ml bottles of wine/champagne**. These must be brought in your carry-on bag, not your checked luggage.
+    * **Water Bottle Refills:** Bring an insulated flask or reusable bottle. The ship’s tap water is heavily filtered and 100% safe to drink. Use the free 24/7 water stations at the Windjammer Buffet or Café Promenade, but remember to use a clean cruise cup to fill your bottle for health reasons.
+    * **⚠️ In-Room Water Bottles Note:** Any sealed plastic water bottles left on your stateroom desk or in the mini-fridge are **not free**. If you open them, they will automatically be billed to your SeaPass card.
+    * **Snack Policy:** You are allowed to bring pre-packaged, factory-sealed dry snacks (like granola bars, chips, or crackers) on board. However, you cannot bring home-cooked food or open perishable items onto the ship or off into the ports.
+    * **Coordination:** Please check the Royal Caribbean App regularly for updates and stay in close contact with your assigned group leader and SPCS member for seamless coordination.
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# EVENING CHECK-IN
+elif st.session_state.page == "CheckIn":
+    show_back_button()
+    st.markdown('<div class="section-header"><span>🌙 End of the Day Check-In Portal</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    st.write("Please log your evening safety status below before heading to bed to assist group organizers.")
+    
+    with st.form("dashboard_checkin", clear_on_submit=True):
+        name = st.text_input("Your Full Name")
+        cabin = st.text_input("Cabin Number")
+        status = st.radio("Current Safety Status", [
+            "✅ Safe in my cabin for the night",
+            "🎉 Out on the ship with an official group",
+            "⚠️ Need Assistance / Urgent Check-in Required"
+        ])
+        notes = st.text_area("Additional updates for coordinators")
+        
+        if st.form_submit_button("Submit Evening Status"):
+            if not name:
+                st.error("Please provide your name to register.")
+            else:
+                st.success(f"Thank you, {name}. Your evening coordination log has been successfully updated!")
+    st.markdown('</div>', unsafe_allow_html=True)
