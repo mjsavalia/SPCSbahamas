@@ -7,7 +7,7 @@ st.set_page_config(
     page_title="SPCS Cruise Hub",
     page_icon="🚢",
     layout="centered",
-    initial_sidebar_state="collapsed" # Completely hides the native sidebar arrow
+    initial_sidebar_state="collapsed"
 )
 
 # --- PREMIUM CRUISE THEME, TYPOGRAPHY & FADED SHIP BACKGROUND ---
@@ -108,8 +108,7 @@ if "page" not in st.session_state:
 st.markdown("""
 <div class="ocean-header-panel">
     <div class="main-title">🚢 SPCS Women’s Forum 2026</div>
-    <div class="subtitle">Bahamas Cruise Trip</div>
-    <div class="subtitle">Itinerary</div>
+    <div class="subtitle">Official Cruise Companion Application</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -426,18 +425,18 @@ elif st.session_state.page == "KeyPoints":
     st.markdown('</div>', unsafe_allow_html=True)
 
 # EVENING CHECK-IN
-elif st.session_state.page =="CheckIn":
+elif st.session_state.page == "CheckIn":
     show_back_button()
     st.markdown('<div class="section-header"><span>🌙 End of the Day Check-In Portal</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
     st.write("Please log your evening safety status below before heading to bed to assist group organizers.")
     
-    # Connect directly to your Google Sheet Secrets link
-    from streamlit_gsheets import GSheetsConnection
+    # Leverages Streamlit's core connection utility
     try:
-        conn = st.connection("gsheets", type=GSheetsConnection)
+        conn = st.connection("gsheets", type="experimental_index")
     except Exception:
-        conn = None
+        # Fallback tracking if framework state resets
+        conn = st.connection("gsheets")
 
     with st.form("dashboard_checkin", clear_on_submit=True):
         name = st.text_input("Your Full Name")
@@ -452,11 +451,8 @@ elif st.session_state.page =="CheckIn":
         if st.form_submit_button("Submit Evening Status"):
             if not name:
                 st.error("Please provide your name to register.")
-            elif conn is None:
-                st.error("Database connection missing. Please verify your Streamlit Cloud Secrets link config.")
             else:
                 try:
-                    # Collect form answers
                     new_row = pd.DataFrame([{
                         "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "Name": name,
@@ -465,13 +461,11 @@ elif st.session_state.page =="CheckIn":
                         "Notes": notes
                     }])
                     
-                    # Pull current spreadsheet contents, append the new row, and save it back
                     existing_data = conn.read(ttl=0)
                     updated_data = pd.concat([existing_data, new_row], ignore_index=True)
                     conn.update(data=updated_data)
                     
-                    st.success(f"Thank you, {name}! Your status has been securely logged to the coordinator spreadsheet dashboard.")
+                    st.success(f"Thank you, {name}. Your evening coordination log has been successfully updated!")
                 except Exception as e:
-                    st.error(f"Error connecting to spreadsheet: {e}")
-                    
+                    st.error(f"Spreadsheet sync error: {e}. Please report status directly to your coordinator.")
     st.markdown('</div>', unsafe_allow_html=True)
