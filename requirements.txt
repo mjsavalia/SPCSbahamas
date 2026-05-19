@@ -1,1 +1,1 @@
-streamlit-gsheets-connection==0.1.2
+streamlit-gsheets-connection
