@@ -302,8 +302,8 @@ elif st.session_state.page == "June7":
     
     st.markdown('<div class="sub-title">🤝 Day Activities & Volunteer Mural Project</div>', unsafe_allow_html=True)
     st.markdown("""
-    * **8:00 AM:** Port Arrival.
-    * **5:00 PM:** Port Departure.
+    * **7:30 AM:** Port Arrival.
+    * **5:30 PM:** Port Departure.
     * **Suggested Breakfast Time:** 6:30 AM – 8:00 AM.
     * **Assembly & Group Departure:** 8:30 AM Meet at the Ship's Exit Gate / Gangway Area on land for group transportation.
     * **9:00 AM – 12:00 PM:** **Community Mural Initiative activity**.
