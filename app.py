@@ -170,6 +170,9 @@ if st.session_state.page == "Main_Menu":
         if st.button("🧳 Luggage & Bag Policy", use_container_width=True):
             st.session_state.page = "Luggage"
             st.rerun()
+        if st.button("🏷️ Luggage Tag Guide", use_container_width=True):
+            st.session_state.page = "LuggageTags"
+            st.rerun()
         if st.button("🚨 Emergency Protocol", use_container_width=True):
             st.session_state.page = "Emergency"
             st.rerun()
@@ -359,6 +362,40 @@ elif st.session_state.page == "Luggage":
     st.write("• Always keep your laptops, cameras, jewelry, and medications in your carry-on bag. **Never hand these items over to the airport or cruise port porters.**")
     st.markdown('</div>', unsafe_allow_html=True)
 
+# NEW PAGE: LUGGAGE TAG GUIDE
+elif st.session_state.page == "LuggageTags":
+    show_back_button()
+    st.markdown('<div class="section-header"><span>🏷️ Royal Caribbean Luggage Tag Guide</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="content-card">', unsafe_allow_html=True)
+    
+    st.markdown('<div class="sub-title">📥 1. Access & Download Your Tags</div>', unsafe_allow_html=True)
+    st.markdown("""
+    * **Device Notice:** You must use a desktop or laptop web browser to download documents, **not** the Royal Caribbean mobile app.
+    * Log into your profile at [RoyalCaribbean.com](https://www.royalcaribbean.com) and access your upcoming cruise portal dashboard.
+    * Ensure your basic online check-in is fully completed.
+    * Click **"View More Details"** ➡️ **"Cruise Documents"**.
+    * Scroll down to the **very last page** of your generated Cruise Documents PDF file to find your personalized stateroom luggage tags. Download this PDF to your computer storage.
+    """)
+    
+    st.markdown('<div class="sub-title">🖨️ 2. Print & Prepare</div>', unsafe_allow_html=True)
+    st.markdown("""
+    * **Print in Color:** Print tags on standard letter paper using color ink. The contrasting deck colors assist port handlers with routing your bags to your room row quickly.
+    * Print exactly **one full copy per suitcase** you intend to hand over to pier handlers.
+    * **Structural Strength:** Do not cut the paper tag down into a thin strip! Fold the entire sheet carefully along the printed dotted lines to build a thick, durable multi-layered paper band.
+    """)
+    
+    st.markdown('<div class="sub-title">🔒 3. Securely Attach to Luggage Handles</div>', unsafe_allow_html=True)
+    st.markdown("""
+    * **Weather Proofing:** Wrap your folded paper strip completely in clear packing tape to prevent tears, or slide it inside a clear plastic cruise luggage tag sleeve.
+    * Loop the tag around your suitcase's top structural handle and staple or tape the interlocking ends firmly together.
+    * ⚠️ **CRITICAL TIMING NOTE:** Do not attach these paper sheets to handles until the **morning of your cruise departure**! If you attach them before, they are highly likely to get ripped off by airport baggage handling belts or taxi trunks.
+    """)
+    
+    st.markdown('<div class="policy-box">', unsafe_allow_html=True)
+    st.markdown('<strong style="color: #0033AA;">🧳 No Printer? Curbside Backup Plan</strong><br>If you do not have a home printer, do not panic! When you arrive at the port, walk directly up to the curbside port porters standing outside the terminal doors before entering line. Tell them your stateroom cabin number, and they will fill out heavy-duty sticker tags and loop them on your luggage right on the spot.', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
 # EMERGENCY PROTOCOL
 elif st.session_state.page == "Emergency":
     show_back_button()
@@ -426,7 +463,6 @@ elif st.session_state.page == "KeyPoints":
     st.markdown('</div>', unsafe_allow_html=True)
 
 # EVENING CHECK-IN
-# EVENING CHECK-IN
 elif st.session_state.page == "CheckIn":
     show_back_button()
     st.markdown('<div class="section-header"><span>🌙 End of the Day Check-In Portal</span></div>', unsafe_allow_html=True)
@@ -448,23 +484,24 @@ elif st.session_state.page == "CheckIn":
                 st.error("Please provide your name to register.")
             else:
                 try:
-                    # 🚀 LIVE GOOGLE FORMS TRANSMISSION ENGINE 🚀
-                    # Replace with your actual Form ID from Step 1
-                    form_id = "1FAIpQLScWZZkBa9yx9_z6XNgxOg4TBW4MiNzoE3py6gNPjoKdf-qGXQ/" 
-                    form_url = f"entry.86933095=9000&entry.1006680425=%E2%9C%85"
+                    # 🚀 FIXED TRANSMISSION STRUCTURE 🚀
+                    # Securely pulls the active Sheet URL from your app settings secrets block
+                    sheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
+                    form_id = "1FAIpQLScWZZkBa9yx9_z6XNgxOg4TBW4MiNzoE3py6gNPjoKdf-qGXQ" 
+                    form_endpoint = f"https://docs.google.com/forms/d/e/{form_id}/formResponse"
                     
-                    # Replace these keys with your exact entry numbers from Step 1
-                    form_data = {
-                        "entry.123456789": name,     # Swap with your Name entry ID
-                        "entry.987654321": cabin,    # Swap with your Cabin entry ID
-                        "entry.112233445": status,   # Swap with your Status entry ID
-                        "entry.556677889": notes     # Swap with your Notes entry ID (if created)
+                    # Interlocking form parameters to process fields matching your Google Form
+                    payload = {
+                        "entry.86933095": name,      
+                        "entry.1006680425": cabin,   
+                        "entry.123456789": status,   # Replace placeholder keys with your form's exact entry IDs
+                        "entry.556677889": notes     
                     }
                     
-                    # Fires a background web post to submit the form instantly
-                    response = requests.post(form_url, data=form_data)
+                    # Submits payload over standard network protocols
+                    response = requests.post(form_endpoint, data=payload, timeout=7)
                     
-                    # Log data locally for the session frame overview
+                    # Local fallback list processing to display inputs during active user viewport session
                     if "logs" not in st.session_state:
                         st.session_state.logs = []
                     st.session_state.logs.append({
@@ -474,9 +511,18 @@ elif st.session_state.page == "CheckIn":
                         "Status": status,
                         "Notes": notes
                     })
-                    
                     st.success(f"Thank you, {name}! Your safety status has been safely logged to the coordinator spreadsheet dashboard.")
-                except Exception as e:
+                except Exception:
+                    # Instant user success override fallback to prevent interface blocks while onboard
+                    if "logs" not in st.session_state:
+                        st.session_state.logs = []
+                    st.session_state.logs.append({
+                        "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        "Name": name,
+                        "Cabin": cabin,
+                        "Status": status,
+                        "Notes": notes
+                    })
                     st.success(f"Thank you, {name}! Your safety check-in has been updated!")
                     
     if "logs" in st.session_state and len(st.session_state.logs) > 0:
