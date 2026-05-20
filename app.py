@@ -203,7 +203,7 @@ def show_back_button():
 # JUNE 3 - ARRIVAL
 if st.session_state.page == "June3":
     show_back_button()
-    st.markdown('<div class="section-header"><span>📍 June 3 – Arrival Day & Pre-Cruise Meetup</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><span>🛫 June 3 – Arrival Day & Pre-Cruise Meetup</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-card">', unsafe_allow_html=True)
     st.markdown("""
     * **Pre-Cruise Coordination:** Group check-ins, flight landings, and hotel rest prior to boarding.
