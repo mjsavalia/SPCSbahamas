@@ -109,7 +109,7 @@ if "page" not in st.session_state:
 st.markdown("""
 <div class="ocean-header-panel">
     <div class="main-title">🚢 SPCS Women’s Forum 2026</div>
-    <div class="subtitle">Official Cruise Companion Application</div>
+    <div class="subtitle">Bahamas - Trip Itinerary</div>
 </div>
 """, unsafe_allow_html=True)
 
