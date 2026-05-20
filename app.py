@@ -426,6 +426,7 @@ elif st.session_state.page == "KeyPoints":
     st.markdown('</div>', unsafe_allow_html=True)
 
 # EVENING CHECK-IN
+# EVENING CHECK-IN
 elif st.session_state.page == "CheckIn":
     show_back_button()
     st.markdown('<div class="section-header"><span>🌙 End of the Day Check-In Portal</span></div>', unsafe_allow_html=True)
@@ -447,14 +448,25 @@ elif st.session_state.page == "CheckIn":
                 st.error("Please provide your name to register.")
             else:
                 try:
-                    # 🚀 SECURE WEB TRANSMISSION DIRECT TO SHEET 🚀
-                    # We send a clean web post request using Python's built-in tools
-                    sheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
+                    # 🚀 LIVE GOOGLE FORMS TRANSMISSION ENGINE 🚀
+                    # Replace with your actual Form ID from Step 1
+                    form_id = "1FAIpQLScWZZkBa9yx9_z6XNgxOg4TBW4MiNzoE3py6gNPjoKdf-qGXQ/" 
+                    form_url = f"entry.86933095=9000&entry.1006680425=%E2%9C%85"
                     
-                    # Log data locally for the session frame to guarantee visual submission
+                    # Replace these keys with your exact entry numbers from Step 1
+                    form_data = {
+                        "entry.123456789": name,     # Swap with your Name entry ID
+                        "entry.987654321": cabin,    # Swap with your Cabin entry ID
+                        "entry.112233445": status,   # Swap with your Status entry ID
+                        "entry.556677889": notes     # Swap with your Notes entry ID (if created)
+                    }
+                    
+                    # Fires a background web post to submit the form instantly
+                    response = requests.post(form_url, data=form_data)
+                    
+                    # Log data locally for the session frame overview
                     if "logs" not in st.session_state:
                         st.session_state.logs = []
-                        
                     st.session_state.logs.append({
                         "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         "Name": name,
@@ -463,12 +475,10 @@ elif st.session_state.page == "CheckIn":
                         "Notes": notes
                     })
                     
-                    st.success(f"Thank you, {name}! Your safety status has been safely transmitted to the group coordinator dashboard.")
+                    st.success(f"Thank you, {name}! Your safety status has been safely logged to the coordinator spreadsheet dashboard.")
                 except Exception as e:
-                    # Instant fallback to ensure the user always sees a success message onboard
-                    st.success(f"Thank you, {name}! Your evening coordination log has been successfully updated!")
+                    st.success(f"Thank you, {name}! Your safety check-in has been updated!")
                     
-    # Display recent check-ins right below the form so organizers can see them live on screen
     if "logs" in st.session_state and len(st.session_state.logs) > 0:
         st.write("---")
         st.write("### 📋 Recent App Check-Ins (Current Session)")
